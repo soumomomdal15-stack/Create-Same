@@ -865,8 +865,7 @@ export class CampaignStore {
       }
       if (Array.isArray(cloudDb.promoCodes)) {
         if (!this.isAdminAuthenticated) {
-          // Standard non-admin users always treat central cloud list as absolute source of truth
-          // BUT only if database settings are initialized, or promoCodes are non-empty to prevent clearing out local state in transit!
+          // Non-admin users always treat central cloud list as absolute source of truth
           if (!dbIsUninitialized || cloudDb.promoCodes.length > 0) {
             this.promoCodes = cloudDb.promoCodes.filter((p: any) => p && p.id && !this.deletedIds.has(String(p.id).trim()));
             localStorage.setItem('cp_promocodes', JSON.stringify(this.promoCodes));
@@ -878,14 +877,45 @@ export class CampaignStore {
             localStorage.setItem('cp_promocodes', JSON.stringify(this.promoCodes));
             this.pushTableToServer('promoCodes', this.promoCodes);
           } else {
-            const merged = mergeAdminList(this.promoCodes, cloudDb.promoCodes, 'id');
+            // Special merge for promo codes:
+            // Admin controls structure (code, rewardAmount, maxUses, maxClaimsPerUser).
+            // Cloud/server is authoritative for usage stats (claimedBy, useCount) since users update these.
+            const cloudMap = new Map<string, any>();
+            (cloudDb.promoCodes || []).forEach((p: any) => { if (p?.id) cloudMap.set(p.id, p); });
+            const localMap = new Map<string, any>();
+            localActivePromoCodes.forEach((p: any) => { if (p?.id) localMap.set(p.id, p); });
+
+            const merged: any[] = [];
+            // Base: all cloud items (they carry latest usage stats)
+            cloudDb.promoCodes.forEach((cloudP: any) => {
+              if (!cloudP?.id || this.deletedIds.has(String(cloudP.id).trim())) return;
+              const localP = localMap.get(cloudP.id);
+              if (localP) {
+                // Merge: local wins for structure fields, cloud wins for usage fields
+                merged.push({
+                  ...localP,
+                  claimedBy: Array.isArray(cloudP.claimedBy) && cloudP.claimedBy.length >= (localP.claimedBy?.length || 0)
+                    ? cloudP.claimedBy
+                    : (localP.claimedBy || []),
+                  useCount: Math.max(cloudP.useCount || 0, localP.useCount || 0),
+                });
+              } else {
+                merged.push({ ...cloudP });
+              }
+            });
+            // Add local-only codes not yet on server
+            localActivePromoCodes.forEach((localP: any) => {
+              if (!cloudMap.has(localP.id)) merged.push({ ...localP });
+            });
+
+            this.promoCodes = merged;
+            localStorage.setItem('cp_promocodes', JSON.stringify(this.promoCodes));
+
             const hasDiscrepancy = merged.some((m: any) => {
               const c = cloudDb.promoCodes.find((x: any) => x.id === m.id);
               if (!c) return true;
               return JSON.stringify(m) !== JSON.stringify(c);
             });
-            this.promoCodes = merged;
-            localStorage.setItem('cp_promocodes', JSON.stringify(this.promoCodes));
             if (hasDiscrepancy) {
               console.log("[SYNC-AUTO-HEAL] Restoring missing/modified admin promoCodes to cloud/server:", merged);
               this.pushTableToServer('promoCodes', this.promoCodes);

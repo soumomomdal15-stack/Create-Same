@@ -144,6 +144,12 @@ router.post("/db/save", (req, res) => {
             if ((existing.status === "completed" || existing.status === "rejected") && item.status === "pending") merged.status = existing.status;
             if (existing.status === "pending" && (item.status === "completed" || item.status === "rejected")) merged.status = "pending";
           }
+          if (key === "promoCodes") {
+            const existingClaimed: string[] = Array.isArray(existing.claimedBy) ? existing.claimedBy : [];
+            const itemClaimed: string[] = Array.isArray(item.claimedBy) ? item.claimedBy : [];
+            merged.claimedBy = itemClaimed.length >= existingClaimed.length ? itemClaimed : existingClaimed;
+            merged.useCount = Math.max(existing.useCount || 0, item.useCount || 0, merged.claimedBy.length);
+          }
           db[key][idx] = merged;
         } else {
           if (key === "withdrawals" && !isAdmin) item.status = "pending";
