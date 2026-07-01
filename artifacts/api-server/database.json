@@ -1,5 +1,29 @@
 {
-  "users": [],
+  "users": [
+    {
+      "uid": "uid_21i22u4nd",
+      "email": "soumomomdal15@gmail.com",
+      "displayName": "Souno",
+      "referralCode": "CP398059",
+      "balances": {
+        "main": 0,
+        "bonus": 0,
+        "referral": 0,
+        "todayEarnings": 0,
+        "totalEarnings": 0,
+        "lastEarningDate": "Wed Jul 01 2026"
+      },
+      "streakDays": 0,
+      "userRank": "Bronze",
+      "isBanned": false,
+      "kycStatus": "None",
+      "deviceFingerprint": "device_hash_537226",
+      "vipMember": false,
+      "vpnActive": false,
+      "password": "82503346",
+      "createdAt": "2026-07-01T09:44:28.106Z"
+    }
+  ],
   "tasks": [],
   "withdrawals": [
     {
@@ -19,17 +43,168 @@
       "paymentMethod": "paytm",
       "paymentDetails": "9876543210@paytm",
       "amount": 400,
-      "status": "pending",
+      "status": "approved",
       "requestedAt": "2026-06-30T11:21:17.204Z",
       "processedAt": "2026-06-30T14:07:57.204Z",
       "paymentProofURL": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=300&q=80"
     }
   ],
   "referrals": [],
-  "transactions": [],
-  "notifications": [],
-  "offerwalls": [],
+  "transactions": [
+    {
+      "id": "tx_tp1hmb69t",
+      "userId": "uid_21i22u4nd",
+      "amount": 0,
+      "type": "promo_code",
+      "description": "Account registered securely",
+      "timestamp": "2026-07-01T09:44:28.109Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "not_1",
+      "title": "🚀 Welcome to EarnOS!",
+      "message": "Start completing tasks, invite friends, and easily withdraw money via UPI and Paytm. Set up your referral code in signup to get a Rs 10 bonus!",
+      "type": "announcement",
+      "createdAt": "2026-07-01T09:34:37.163Z"
+    },
+    {
+      "id": "not_2",
+      "title": "⚡ Double Referral Bonanza",
+      "message": "Today only: Get an extra Rs 5 on Level 2 referrals when they perform their first task!",
+      "type": "update",
+      "createdAt": "2026-07-01T08:34:37.167Z"
+    },
+    {
+      "id": "not_3",
+      "title": "⚠️ Fast Review Approvals",
+      "message": "Our review team is actively reviewing rating screenshots in under 15 minutes! Complete tasks now.",
+      "type": "alert",
+      "createdAt": "2026-06-30T09:34:37.167Z"
+    }
+  ],
+  "offerwalls": [
+    {
+      "id": "cpx",
+      "name": "CPX Research",
+      "multiplier": 1.2,
+      "isActive": true,
+      "apiKey": "cpx_pub_938201a084df",
+      "callbackUrl": "https://api.campaignpanel.com/v1/callback/cpx"
+    },
+    {
+      "id": "adgate",
+      "name": "AdGate Media",
+      "multiplier": 1,
+      "isActive": true,
+      "apiKey": "adg_key_cb9323ef",
+      "callbackUrl": "https://api.campaignpanel.com/v1/callback/adgate"
+    },
+    {
+      "id": "offertoro",
+      "name": "OfferToro",
+      "multiplier": 1.5,
+      "isActive": true,
+      "apiKey": "toro_api_fe8439ac",
+      "callbackUrl": "https://api.campaignpanel.com/v1/callback/toro"
+    },
+    {
+      "id": "lootably",
+      "name": "Lootably Studio",
+      "multiplier": 1.1,
+      "isActive": true,
+      "apiKey": "loot_pub_3482710",
+      "callbackUrl": "https://api.campaignpanel.com/v1/callback/lootably"
+    },
+    {
+      "id": "adgem",
+      "name": "AdGem Networks",
+      "multiplier": 1.3,
+      "isActive": false,
+      "apiKey": "adg_pub_ef908122",
+      "callbackUrl": "https://api.campaignpanel.com/v1/callback/adgem"
+    },
+    {
+      "id": "ayet",
+      "name": "Ayet Studios",
+      "multiplier": 1.4,
+      "isActive": false,
+      "apiKey": "ayet_pub_cd7382ef",
+      "callbackUrl": "https://api.campaignpanel.com/v1/callback/ayet"
+    }
+  ],
   "promoCodes": [],
   "taskCompletions": [],
-  "deletedIds": []
+  "deletedIds": [
+    {
+      "id": "t_campaign_1",
+      "docId": "t_campaign_1",
+      "tableName": "tasks",
+      "deletedAt": "2026-07-01T09:43:25.243Z"
+    },
+    {
+      "id": "t_6",
+      "docId": "t_6",
+      "tableName": "tasks",
+      "deletedAt": "2026-07-01T09:43:33.052Z"
+    },
+    {
+      "id": "t_5",
+      "docId": "t_5",
+      "tableName": "tasks",
+      "deletedAt": "2026-07-01T09:43:33.795Z"
+    },
+    {
+      "id": "t_4",
+      "docId": "t_4",
+      "tableName": "tasks",
+      "deletedAt": "2026-07-01T09:43:34.411Z"
+    },
+    {
+      "id": "t_7",
+      "docId": "t_7",
+      "tableName": "tasks",
+      "deletedAt": "2026-07-01T09:43:35.539Z"
+    },
+    {
+      "id": "t_3",
+      "docId": "t_3",
+      "tableName": "tasks",
+      "deletedAt": "2026-07-01T09:43:37.394Z"
+    },
+    {
+      "id": "t_2",
+      "docId": "t_2",
+      "tableName": "tasks",
+      "deletedAt": "2026-07-01T09:43:38.360Z"
+    },
+    {
+      "id": "t_1",
+      "docId": "t_1",
+      "tableName": "tasks",
+      "deletedAt": "2026-07-01T09:43:39.192Z"
+    }
+  ],
+  "settings": {
+    "appName": "EarnOS",
+    "currencySymbol": "₹",
+    "pointsRate": 100,
+    "minWithdrawal": 25,
+    "referralBonusFirstLevel": 10,
+    "referralBonusSecondLevel": 5,
+    "referralBonusThirdLevel": 2,
+    "maintenanceMode": false,
+    "themeColor": "#3b82f6",
+    "customPostbackDomain": ""
+  },
+  "adConfig": {
+    "id": "default_admob_config",
+    "bannerEnabled": true,
+    "interstitialEnabled": true,
+    "rewardedEnabled": true,
+    "rewardFrequency": 3,
+    "admobBannerId": "ca-app-pub-3940256099942544/6300978111",
+    "admobInterstitialId": "ca-app-pub-3940256099942544/1033173712",
+    "admobRewardedId": "ca-app-pub-3940256099942544/5224354917"
+  }
 }
