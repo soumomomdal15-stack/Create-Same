@@ -264,9 +264,6 @@ export default function LoginPage({ theme, onLoginSuccess, toggleTheme }: LoginP
           </div>
         </div>
 
-        <p className="text-center text-[10px] text-zinc-500">
-          Admin access: use <span className="font-mono text-zinc-400">admin@gmail.com</span> with your admin password
-        </p>
       </div>
     </div>
   );
