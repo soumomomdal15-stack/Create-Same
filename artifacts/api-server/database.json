@@ -1,0 +1,35 @@
+{
+  "users": [],
+  "tasks": [],
+  "withdrawals": [
+    {
+      "id": "wd_mock1",
+      "userId": "uid_rahul",
+      "userEmail": "rahul.sharma@gmail.com",
+      "paymentMethod": "upi",
+      "paymentDetails": "rahul@okaxis",
+      "amount": 250,
+      "status": "pending",
+      "requestedAt": "2026-07-01T06:47:57.204Z"
+    },
+    {
+      "id": "wd_mock2",
+      "userId": "uid_amit",
+      "userEmail": "amit.verma9@gmail.com",
+      "paymentMethod": "paytm",
+      "paymentDetails": "9876543210@paytm",
+      "amount": 400,
+      "status": "pending",
+      "requestedAt": "2026-06-30T11:21:17.204Z",
+      "processedAt": "2026-06-30T14:07:57.204Z",
+      "paymentProofURL": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=300&q=80"
+    }
+  ],
+  "referrals": [],
+  "transactions": [],
+  "notifications": [],
+  "offerwalls": [],
+  "promoCodes": [],
+  "taskCompletions": [],
+  "deletedIds": []
+}
