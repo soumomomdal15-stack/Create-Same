@@ -202,7 +202,12 @@ export class CampaignStore {
       this.referrals = JSON.parse(localStorage.getItem('cp_referrals') || '[]');
       this.transactions = JSON.parse(localStorage.getItem('cp_transactions') || '[]');
       this.notifications = JSON.parse(localStorage.getItem('cp_notifications') || '[]').filter((n: any) => n && n.id && !this.deletedIds.has(String(n.id).trim()));
-      this.offerwalls = JSON.parse(localStorage.getItem('cp_offerwalls') || '[]').filter((o: any) => o && o.id && !this.deletedIds.has(String(o.id).trim()));
+      // Remove any hardcoded seed offerwall IDs that were auto-seeded previously
+      const SEED_OFFERWALL_IDS = new Set(["cpx", "adgate", "offertoro", "lootably", "adgem", "ayet"]);
+      this.offerwalls = JSON.parse(localStorage.getItem('cp_offerwalls') || '[]').filter(
+        (o: any) => o && o.id && !this.deletedIds.has(String(o.id).trim()) && !SEED_OFFERWALL_IDS.has(String(o.id))
+      );
+      localStorage.setItem('cp_offerwalls', JSON.stringify(this.offerwalls));
       this.promoCodes = JSON.parse(localStorage.getItem('cp_promocodes') || '[]').filter((p: any) => p && p.id && !this.deletedIds.has(String(p.id).trim()));
       this.taskCompletions = this.restoreHeavyImages(JSON.parse(localStorage.getItem('cp_task_completions') || '[]')).filter((tc: any) => tc && tc.id && !this.deletedIds.has(String(tc.id).trim()));
       
@@ -237,10 +242,6 @@ export class CampaignStore {
         if (this.notifications.length === 0) {
           this.notifications = [...INITIAL_NOTIFICATIONS];
           localStorage.setItem('cp_notifications', JSON.stringify(this.notifications));
-        }
-        if (this.offerwalls.length === 0) {
-          this.offerwalls = [...INITIAL_OFFERW_CONFIG];
-          localStorage.setItem('cp_offerwalls', JSON.stringify(this.offerwalls));
         }
         localStorage.setItem('cp_seeded', 'true');
       }
