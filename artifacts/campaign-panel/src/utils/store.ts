@@ -299,13 +299,13 @@ export class CampaignStore {
         bonus += amt;
         if (amt > 0) totalEarnings += amt;
       } else if (t.type === 'referral') {
-        referral += amt;
+        main += amt;
         if (amt > 0) totalEarnings += amt;
       } else if (t.type === 'promo_code' && t.description && t.description.toLowerCase().includes('(bonus)')) {
         bonus += amt;
         if (amt > 0) totalEarnings += amt;
       } else if (t.type === 'promo_code' && t.description && t.description.toLowerCase().includes('(referral)')) {
-        referral += amt;
+        main += amt;
         if (amt > 0) totalEarnings += amt;
       } else if (t.type === 'withdraw_approve') {
         // Deduction happened during withdraw_pending, so approval has no balance change.
@@ -1922,7 +1922,7 @@ export class CampaignStore {
             const refIdx = this.users.findIndex(u => u.uid === rel.referrerId);
             if (refIdx !== -1) {
               const referrer = this.users[refIdx];
-              referrer.balances.referral += 5;
+              referrer.balances.main += 5;
               referrer.balances.totalEarnings += 5;
               this.saveUsers();
 
