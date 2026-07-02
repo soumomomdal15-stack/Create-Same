@@ -762,6 +762,19 @@ export class CampaignStore {
         });
 
         localStorage.setItem('cp_users', JSON.stringify(this.users));
+
+        // Sync currentUser with the latest server data so wallet balance reflects admin-credited rewards (e.g. referral bonus)
+        if (this.currentUser) {
+          const updatedMe = this.users.find(u => u.uid === this.currentUser!.uid);
+          if (updatedMe) {
+            // Preserve session-only fields that server doesn't control
+            this.currentUser = {
+              ...updatedMe,
+              password: this.currentUser.password,
+            };
+            this.saveSession();
+          }
+        }
       }
       const dbIsUninitialized = !cloudDb.settings;
 
