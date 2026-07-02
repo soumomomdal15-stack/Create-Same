@@ -1914,14 +1914,10 @@ export class CampaignStore {
             rel.bonusEarned = 5;
             this.saveReferrals();
 
-            // Credit ₹5 to referrer
+            // Credit ₹5 to referrer — ONLY via transaction; recalculateUserBalances will derive balance from it
             const refIdx = this.users.findIndex(u => u.uid === rel.referrerId);
             if (refIdx !== -1) {
               const referrer = this.users[refIdx];
-              referrer.balances.main += 5;
-              referrer.balances.totalEarnings += 5;
-              this.saveUsers();
-
               this.addTransaction(referrer.uid, 5, 'referral', `Received ₹5 reward because referred friend ${wd.userEmail} completed their first successful withdrawal!`);
 
               if (this.currentUser && this.currentUser.uid === referrer.uid) {
