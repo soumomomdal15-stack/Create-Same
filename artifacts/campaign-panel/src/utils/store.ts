@@ -197,7 +197,12 @@ export class CampaignStore {
       this.deletedIds = new Set<string>(delIdsString ? JSON.parse(delIdsString) : []);
 
       this.users = JSON.parse(localStorage.getItem('cp_users') || '[]');
-      this.tasks = JSON.parse(localStorage.getItem('cp_tasks') || '[]').filter((t: any) => t && t.id && !this.deletedIds.has(String(t.id).trim()));
+      // Remove any hardcoded seed task IDs that were auto-seeded previously
+      const SEED_TASK_IDS = new Set(["t_campaign_1", "t_1", "t_2", "t_3", "t_4", "t_5", "t_6", "t_7"]);
+      this.tasks = JSON.parse(localStorage.getItem('cp_tasks') || '[]').filter(
+        (t: any) => t && t.id && !this.deletedIds.has(String(t.id).trim()) && !SEED_TASK_IDS.has(String(t.id))
+      );
+      localStorage.setItem('cp_tasks', JSON.stringify(this.tasks));
       this.withdrawals = JSON.parse(localStorage.getItem('cp_withdrawals') || '[]');
       this.referrals = JSON.parse(localStorage.getItem('cp_referrals') || '[]');
       this.transactions = JSON.parse(localStorage.getItem('cp_transactions') || '[]');
@@ -232,17 +237,8 @@ export class CampaignStore {
       const savedAdmin = localStorage.getItem('cp_admin_auth');
       this.isAdminAuthenticated = savedAdmin === 'true';
 
-      // Seed if empty and never seeded before to prevent resurrecting deleted lists
-      const hasSeeded = localStorage.getItem('cp_seeded') === 'true';
-      if (!hasSeeded) {
-        if (this.tasks.length === 0) {
-          this.tasks = [...INITIAL_TASKS];
-          localStorage.setItem('cp_tasks', JSON.stringify(this.tasks));
-        }
-        if (this.notifications.length === 0) {
-          this.notifications = [...INITIAL_NOTIFICATIONS];
-          localStorage.setItem('cp_notifications', JSON.stringify(this.notifications));
-        }
+      // Mark as seeded so this block never runs again (tasks/offerwalls now come only from admin/server)
+      if (localStorage.getItem('cp_seeded') !== 'true') {
         localStorage.setItem('cp_seeded', 'true');
       }
       
